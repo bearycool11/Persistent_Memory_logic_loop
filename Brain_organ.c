@@ -12,7 +12,7 @@
 #include "pml_logic_loop.h"
 #include "knowledge.h"
 #include "inner_ear.h"
-#include "utf_11_cssff_tokenizer.h" // UTF-11 Tokenizer for advanced parsing
+#include "UTF-11.h" // UTF-11 Tokenizer for advanced parsing
 #include <gpgme.h> // Cryptographic integration for secure processing
 
 #define FIBONACCI_LIMIT 120000.0
