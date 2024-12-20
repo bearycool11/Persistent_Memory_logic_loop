@@ -1,4 +1,3 @@
-// Final Unified Brain Organ with Diagnostics, Inner Ear System, and Cryptographic Integration
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +12,13 @@
 #include "knowledge.h"
 #include "inner_ear.h"
 #include "UTF-11.h" // UTF-11 Tokenizer for advanced parsing
+#include "agent.h" // Global agent definitions
+#include "command.h" // GPG command handler
+#include "command-ssh.h" // SSH protocol handler
+#include "genkey.h" // Key generation utilities
+#include "findkey.h" // Key finding utilities
+#include "pksign.h" // Signing utilities
+#include "protect.h" // Data protection logic
 #include <gpgme.h> // Cryptographic integration for secure processing
 
 #define FIBONACCI_LIMIT 120000.0
@@ -109,6 +115,36 @@ void integrate_inner_ear(InnerEar *inner_ear, double auditory_signal, double ves
     simulate_octave_range(inner_ear);
 }
 
+// Mimemograph Processing Logic thanks John Trompeter for that one
+void process_mimemograph(Graph *knowledge_graph, EmotionalGraph *emotional_graph, UnifiedMemoryAndVoice *umv) {
+    // Step 1: Process batch load for both graphs
+    process_batch_load(knowledge_graph);
+    process_batch_load(emotional_graph);
+    printf("[Mimemograph] Batch load processed. Creating copies for LTM cognition root...\n");
+
+    // Step 2: Create copies for LTM cognition root
+    Graph *ltm_knowledge_copy = clone_graph(knowledge_graph);
+    EmotionalGraph *ltm_emotional_copy = clone_emotional_graph(emotional_graph);
+
+    // Step 3: Pass copies to LTM for long-term storage
+    printf("[Mimemograph] Passing copies to LTM cognition root...\n");
+    transfer_to_ltm_cognition(ltm_knowledge_copy, ltm_emotional_copy, umv);
+
+    // Step 4: Maintain original until PMLL logic loop confirms consolidation
+    printf("[Mimemograph] Retaining original data until PMLL logic loop confirms consolidation...\n");
+    if (!pmll_confirm_consolidation(umv)) {
+        printf("[Error] PMLL consolidation not confirmed. Retrying...\n");
+    }
+
+    printf("[Mimemograph] Consolidation confirmed. Cleaning up STM batch load...\n");
+
+    // Step 5: Cleanup original batch from STM after confirmation
+    clear_graph(knowledge_graph);
+    clear_emotional_graph(emotional_graph);
+
+    printf("[Mimemograph] Rollout and cleanup complete.\n");
+}
+
 // Orchestration Script Logic
 void orchestrate_system() {
     printf("Starting orchestration of Final Unified Brain Organ system...\n");
@@ -151,58 +187,33 @@ int main() {
 
     // Initialize Components
     UnifiedMemoryAndVoice *umv = init_unified_memory_and_voice("STM Init", "LTM Init", "Hello Universe");
-    LeftHemisphere *left = malloc(sizeof(LeftHemisphere));
-    left->logical_operations = strdup("Logical Processes");
-    left->data_processed = 100;
+    Graph *knowledge_graph = create_graph(1024);
+    EmotionalGraph *emotional_graph = create_emotional_graph(512);
 
-    RightHemisphere *right = malloc(sizeof(RightHemisphere));
-    right->creative_operations = strdup("Creative Processes");
-    right->data_generated = 50;
-    right->visual_data = strdup("Sample Visual");
+    printf("[Initialization Complete] Starting cognitive loop...\n");
 
-    InnerEar *inner_ear = init_inner_ear(440.0, 1.0, 10.0);
+    // Cognitive loop with Mimemograph and PMLL integration
     int JKE_counter = 0;
-
-    // Run Orchestration Script
-    orchestrate_system();
-
     while (1) {
+        process_mimemograph(knowledge_graph, emotional_graph, umv);
+
         for (int j = 0; j < 10; j++, JKE_counter++) {
-            printf("\n[Cycle %d] Processing
-// Main Logic Continuation
-            integrate_inner_ear(inner_ear, 10.0 + rand() % 20, -0.1 + (rand() % 3 / 10.0));
-            novel_topic_input(umv, &JKE_counter);
-            corpus_callosum_cross_talk(left, right);
+            printf("\n[Cycle %d, Sub-cycle %d] Processing...\n", JKE_counter, j);
 
-            char *tokenized = utf_11_cssff_tokenize("Example input for UTF-11 CSSFF Tokenizer.");
-            printf("[UTF-11 Tokenizer] Output: %s\n", tokenized);
-            free(tokenized);
+            if (j % 2 == 0) {
+                printf("[Novel Topic Batch Load] Embedding new topic...\n");
+                embed_novel_topic(knowledge_graph, umv, "Topic_N");
+            }
 
-            KnowledgeGraphNode *node = create_knowledge_node("Example Node", 1.5);
-            integrate_knowledge_graph(node, umv, 10);
-
-            custodian_monitor(umv, left, right);
+            custodian_monitor(umv, NULL, NULL);
         }
+
         if (JKE_counter >= 50) {
             printf("[Main] Exiting loop after %d cycles.\n", JKE_counter);
             break;
         }
     }
 
-    // Cleanup
-    free(umv->short_term_memory);
-    free(umv->long_term_memory);
-    free(umv->voice_input);
-    free(umv);
-    free(left->logical_operations);
-    free(left);
-    free(right->creative_operations);
-    free(right->visual_data);
-    free(right);
-    free_inner_ear(inner_ear);
-
-    printf("Final Unified Brain Organ process completed successfully!\n");
-
+    printf("[Shutdown] Process completed successfully!\n");
     return 0;
 }
-
